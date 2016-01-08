@@ -15,7 +15,8 @@ use Nelmio\SecurityBundle\ExternalRedirect\TargetValidator;
 use Nelmio\SecurityBundle\ExternalRedirect\WhitelistBasedTargetValidator;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
-use Symfony\Component\HttpKernel\Log\LoggerInterface;
+#use Symfony\Component\HttpKernel\Log\LoggerInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
@@ -78,7 +79,7 @@ class ExternalRedirectListener
         }
 
         if ($this->logger) {
-            $this->logger->warn('External redirect detected from '.$e->getRequest()->getUri().' to '.$response->headers->get('Location'));
+            $this->logger->warning('External redirect detected from '.$e->getRequest()->getUri().' to '.$response->headers->get('Location'));
         }
 
         if ($this->abort) {
